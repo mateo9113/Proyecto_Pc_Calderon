@@ -31,18 +31,19 @@ class LoginPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.80,
               height: MediaQuery.of(context).size.height * 0.75,
               decoration: BoxDecoration(
-                  //para decorar todo el contenedor
-                  color: Color.fromRGBO(0, 0, 0, 0.86),
-                  borderRadius: BorderRadius.all(Radius.circular(35)),
-                  boxShadow: [
-                    BoxShadow(
-                      //agregar unaluz de fondo sombreada
-                      color: Color.fromARGB(255, 76, 28, 78).withOpacity(0.7),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    ),
-                  ]),
+                //para decorar todo el contenedor
+                color: Color.fromRGBO(0, 0, 0, 0.86),
+                borderRadius: BorderRadius.all(Radius.circular(35)),
+                boxShadow: [
+                  BoxShadow(
+                    //agregar unaluz de fondo sombreada
+                    color: Color.fromARGB(255, 76, 28, 78).withOpacity(0.7),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
               child: Column(
                 //contenido
                 mainAxisAlignment: MainAxisAlignment
@@ -109,7 +110,7 @@ class LoginPage extends StatelessWidget {
                         MainAxisAlignment.center, //horizontal en row
                     children: [
                       Container(
-                        width: 95,
+                        width: 45,
                         height: 1,
                         color: Colors.white,
                         margin: EdgeInsets.only(right: 5), //separacion
@@ -122,7 +123,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        width: 95,
+                        width: 45,
                         height: 1,
                         color: Colors.white,
                         margin: EdgeInsets.only(left: 5), //separacion
@@ -137,11 +138,14 @@ class LoginPage extends StatelessWidget {
                         left: 25, right: 20, top: 24), //separcion de botones
                     child: ElevatedButton(
                       //boton Registrate
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context,
+                            'register'); //agregar la ruta del boton en el main defines register
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 107, 68, 167)),
                       child: Text(
-                        'Registrarse',
+                        'Registrate',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

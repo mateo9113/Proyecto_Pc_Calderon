@@ -1,4 +1,5 @@
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,13 +14,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'App Pc Calderon',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       initialRoute: 'login',
-      routes: {'login': (BuildContext context) => LoginPage()}, //rutas
+      routes: {
+        'login': (BuildContext context) => LoginPage(),
+        'register': (BuildContext context) => RegisterPage(),
+      }, //rutas
     );
   }
 }
