@@ -1,4 +1,5 @@
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultDropdownButtonFormField.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     //ejecuta 1 sola vez cuando carga la pantalla
-    // TODO: implement initState
+    // TODO:implement initState
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loginBlocCubit?.dispose(); // para la validacion
     });
   }
@@ -58,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               height: MediaQuery.of(context).size.height * 0.75,
               decoration: BoxDecoration(
                 //para decorar todo el contenedor
-                color: Color.fromRGBO(0, 0, 0, 0.86),
+                color: Colors.black87,
                 borderRadius: BorderRadius.all(Radius.circular(35)),
                 boxShadow: [
                   BoxShadow(
@@ -91,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold), //Estilo y negrilla
                     ),
+
                     Container(
                       margin: EdgeInsets.only(left: 25, right: 25),
                       child: StreamBuilder(
@@ -99,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                           builder: (context, snapshot) {
                             return DefaultTextField(
                               label: 'Correo Electronico',
+                              errorText: snapshot.error?.toString(),
                               icon: Icons.email,
                               onChanged: (text) {
                                 _loginBlocCubit?.changeEmail(text);
@@ -113,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                           builder: (context, snapshot) {
                             return DefaultTextField(
                               label: 'Contraseña',
+                              errorText: snapshot.error?.toString(),
                               icon: Icons.lock,
                               onChanged: (text) {
                                 _loginBlocCubit?.changePassword(text);
@@ -120,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                               obscureText: true,
                             );
                           }),
+                      //roles
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,

@@ -7,14 +7,17 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   // esto es para controlar los inicios
   LoginBlocCubit() : super(LoginInitial());
 // controladores de la insercion de el login
+
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 
   Stream<String> get emailStream => _emailController.stream;
   Stream<String> get passwordStream => _passwordController.stream;
+
   //metodos
+
   void changeEmail(String email) {
-    if (email.length < 6) {
+    if (email.isNotEmpty && email.length < 6) {
       _emailController.sink
           .addError('La longitud de caracteres tiene que ser mayor a 6');
     } else {
@@ -23,7 +26,7 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   }
 
   void changePassword(String password) {
-    if (password.length < 6) {
+    if (password.isNotEmpty && password.length < 6) {
       _passwordController.sink.addError('error de Contraseña');
     } else {
       _passwordController.sink.add(password);
@@ -31,13 +34,13 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   }
 
   Stream<bool> get validateFrom => Rx.combineLatest2(
-      //combinar para validar
-      emailStream,
-      passwordStream,
-      (a, b) => true);
+      emailStream, passwordStream, (a, b) => true); //combina los resultados
+  //combinar para validar
+
   // metodo para borrar datos
   void dispose() {
     //cuando pasemos a otra pantalla
+
     changeEmail('');
     changePassword('');
   }

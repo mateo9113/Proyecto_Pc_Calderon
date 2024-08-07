@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class DefaultTextField extends StatelessWidget {
   String label;
+  String? errorText;
   IconData icon;
   Function(String text) onChanged;
   bool obscureText;
@@ -10,6 +11,7 @@ class DefaultTextField extends StatelessWidget {
   DefaultTextField({
     //
     required this.label,
+    this.errorText,
     required this.icon,
     required this.onChanged,
     this.obscureText = false,
@@ -29,6 +31,7 @@ class DefaultTextField extends StatelessWidget {
               //estilo
               color: Colors.white),
         ),
+        errorText: errorText,
         prefixIcon: Icon(
           //o sufixIcon para que cambie de lado
           icon,

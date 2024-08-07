@@ -1,3 +1,4 @@
+import 'package:app_proyecto_pccalderon/src/blocProviders.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/RegisterPage.dart';
@@ -16,8 +17,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBlocCubit(),
+    return MultiBlocProvider(
+      providers: blocProviders,
       child: MaterialApp(
         builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
