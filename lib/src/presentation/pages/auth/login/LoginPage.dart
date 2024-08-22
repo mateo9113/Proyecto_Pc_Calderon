@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: ElevatedButton.styleFrom(
                                   //CONTROL DE BOTON COLOR
                                   backgroundColor: snapshot.hasData
-                                      ? Color.fromARGB(255, 224, 156, 9)
+                                      ? Colors.green
                                       : Colors.green),
                               child: Text(
                                 'Iniciar Sesion',
