@@ -1,4 +1,5 @@
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +12,13 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
 // controladores de la insercion de el login
   AuthService authService = AuthService();
 
+  final _responseController = BehaviorSubject<Resource>();
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 
   Stream<String> get emailStream => _emailController.stream;
   Stream<String> get passwordStream => _passwordController.stream;
+  Stream<Resource> get responseStream => _responseController.stream;
 
   //metodos
 
@@ -41,12 +44,13 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   //combinar para validar
 
   void login() async {
-    //future es asincrona y hay que usar await
-    print('Email: ${_emailController.value}');
-    print('Password: ${_passwordController.value}');
-    AuthResponse response = await authService.login(
+    Resource response = await authService.login(
         _emailController.value, _passwordController.value);
-    print('Response : ${response.toJson()}');
+    _responseController.add(response);
+    Future.delayed(Duration(seconds: 2), () {
+      _responseController.add(Initial());
+    });
+    print('Response : ${response}');
   }
 
   // metodo para borrar datos

@@ -1,3 +1,4 @@
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultDropdownButtonFormField.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultTextField.dart';
@@ -43,6 +44,20 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center, //para q e contenedor este en el centro
           // te habilita el fondo COMO PRIMER ELEMENTO
           children: [
+            StreamBuilder(
+              stream: _loginBlocCubit?.responseStream,
+              builder: (context, snapshot) {
+                final state = snapshot.data;
+                if (state is Error) {
+                  Fluttertoast.showToast(
+                      msg: state.message, toastLength: Toast.LENGTH_LONG);
+                } else if (state is Success) {
+                  Fluttertoast.showToast(
+                      msg: 'Login Exitoso', toastLength: Toast.LENGTH_LONG);
+                }
+                return Container();
+              },
+            ),
             Image.asset(
               'assets/img/fondo2.jpg',
               width: MediaQuery.of(context).size.width,
