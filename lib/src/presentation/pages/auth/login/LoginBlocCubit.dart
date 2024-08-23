@@ -44,6 +44,7 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   //combinar para validar
 
   void login() async {
+    _responseController.add(Loading());
     Resource response = await authService.login(
         _emailController.value, _passwordController.value);
     _responseController.add(response);
