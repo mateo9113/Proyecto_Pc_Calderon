@@ -1,0 +1,19 @@
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
+import 'package:app_proyecto_pccalderon/src/domain/models/Usuario.dart';
+import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
+
+class AuthRepositoryImpl implements AuthRepository {
+  AuthService authService = AuthService();
+
+  @override
+  Future<Resource> login(String email, String password) {
+    return authService.login(email, password);
+  }
+
+  @override
+  Future<Resource> register(Usuario usuario) {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
+}
