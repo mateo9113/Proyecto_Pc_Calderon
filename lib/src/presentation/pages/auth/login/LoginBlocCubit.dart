@@ -1,6 +1,7 @@
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +9,11 @@ import 'package:rxdart/rxdart.dart';
 
 // ignore: file_names// sirve para controlar y hacer Validaciones
 class LoginBlocCubit extends Cubit<LoginBlocState> {
-  // esto es para controlar los inicios
-  LoginBlocCubit() : super(LoginInitial());
+  AuthUseCases authUseCases;
+  LoginBlocCubit(this.authUseCases) : super(LoginInitial());
+
 // controladores de la insercion de el login
   // AuthService authService = AuthService(); se va con clean arquiture
-  LoginUseCase loginUseCase = LoginUseCase();
 
   final _responseController = BehaviorSubject<Resource>();
   final _emailController = BehaviorSubject<String>();
@@ -47,10 +48,10 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
 
   void login() async {
     _responseController.add(Loading());
-    Resource response = await loginUseCase.run(
-        _emailController.value, _passwordController.value);
+    Resource response = await authUseCases.login
+        .run(_emailController.value, _passwordController.value);
     _responseController.add(response);
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       _responseController.add(Initial());
     });
     print('Response : ${response}');

@@ -2,9 +2,12 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthS
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/Usuario.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
+import 'package:injectable/injectable.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthService authService = AuthService();
+  AuthService authService;
+
+  AuthRepositoryImpl(this.authService);
 
   @override
   Future<Resource> login(String email, String password) {
