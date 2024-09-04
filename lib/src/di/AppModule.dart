@@ -3,6 +3,7 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthS
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LoginUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -14,6 +15,8 @@ abstract class AppModule {
   AuthRepository get authRepository => AuthRepositoryImpl(authService);
 
   @injectable
-  AuthUseCases get authUseCases =>
-      AuthUseCases(login: LoginUseCase(authRepository));
+  AuthUseCases get authUseCases => AuthUseCases(
+        login: LoginUseCase(authRepository),
+        register: RegisterUseCase(authRepository),
+      );
 }

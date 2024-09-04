@@ -16,7 +16,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Resource> register(Usuario usuario) {
-    // TODO: implement register
-    throw UnimplementedError();
+    return authService.register(usuario);
   }
 }
