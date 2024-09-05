@@ -1,3 +1,4 @@
+import 'package:app_proyecto_pccalderon/injection.dart';
 import 'package:app_proyecto_pccalderon/src/blocProviders.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
@@ -7,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:rxdart/rxdart.dart';
 
-void main() {
+void main() async {
+  await configureDependencies();
   runApp(const MyApp());
 }
 
