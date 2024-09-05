@@ -1,18 +1,27 @@
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
+import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 // ignore: file_names// sirve para controlar y hacer Validaciones
 class LoginBlocCubit extends Cubit<LoginBlocState> {
-  // esto es para controlar los inicios
-  LoginBlocCubit() : super(LoginInitial());
-// controladores de la insercion de el login
+  AuthUseCases authUseCases;
+  LoginBlocCubit(this.authUseCases) : super(LoginInitial());
 
+// controladores de la insercion de el login
+  // AuthService authService = AuthService(); se va con clean arquiture
+
+  final _responseController = BehaviorSubject<Resource>();
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 
   Stream<String> get emailStream => _emailController.stream;
   Stream<String> get passwordStream => _passwordController.stream;
+  Stream<Resource> get responseStream => _responseController.stream;
 
   //metodos
 
@@ -37,16 +46,21 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
       emailStream, passwordStream, (a, b) => true); //combina los resultados
   //combinar para validar
 
-  // metodo para borrar datos
-  void dispose() {
-    //cuando pasemos a otra pantalla
-
-    changeEmail('');
-    changePassword('');
+  void login() async {
+    _responseController.add(Loading());
+    Resource response = await authUseCases.login
+        .run(_emailController.value, _passwordController.value);
+    _responseController.add(response);
+    Future.delayed(Duration(seconds: 1), () {
+      _responseController.add(Initial());
+    });
+    print('Response : ${response}');
   }
 
-  void login() {
-    print('Email: ${_emailController.value}');
-    print('Password: ${_passwordController.value}');
+  // metodo para borrar datos
+  void dispose() {
+//cuando pasemos a otra pantalla
+    changeEmail('');
+    changePassword('');
   }
 }
