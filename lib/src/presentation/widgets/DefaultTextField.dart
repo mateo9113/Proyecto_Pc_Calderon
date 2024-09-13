@@ -10,16 +10,17 @@ class DefaultTextField extends StatelessWidget {
 
   DefaultTextField({
     //
+    Key? key,
     required this.label,
     this.errorText,
     required this.icon,
     required this.onChanged,
     this.obscureText = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       obscureText: obscureText,
       onChanged: (text) {
         onChanged(text);

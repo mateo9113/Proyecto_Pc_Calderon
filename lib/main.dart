@@ -1,6 +1,6 @@
 import 'package:app_proyecto_pccalderon/injection.dart';
 import 'package:app_proyecto_pccalderon/src/blocProviders.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter/material.dart';

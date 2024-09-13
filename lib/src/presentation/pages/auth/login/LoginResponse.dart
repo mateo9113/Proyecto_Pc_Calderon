@@ -1,10 +1,10 @@
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginBlocCubit.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginResponse extends StatelessWidget {
-  LoginBlocCubit? bloc;
+  LoginBloc? bloc;
 
   LoginResponse(this.bloc);
 
@@ -17,11 +17,9 @@ class LoginResponse extends StatelessWidget {
         if (state is Loading) {
           return Center(child: CircularProgressIndicator(color: Colors.red));
         } else if (state is Error) {
-          Fluttertoast.showToast(
-              msg: state.message, toastLength: Toast.LENGTH_LONG);
+          Fluttertoast.showToast(msg: state.message, toastLength: Toast.LENGTH_LONG);
         } else if (state is Success) {
-          Fluttertoast.showToast(
-              msg: 'Login Exitoso', toastLength: Toast.LENGTH_LONG);
+          Fluttertoast.showToast(msg: 'Login Exitoso', toastLength: Toast.LENGTH_LONG);
         }
         return Container();
       },
