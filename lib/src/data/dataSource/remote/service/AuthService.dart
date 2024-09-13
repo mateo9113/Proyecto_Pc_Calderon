@@ -25,7 +25,7 @@ class AuthService {
       } else {
         //Error
 
-        return Error(data['message']);
+        return Error(listToString(data['message']));
       }
     } catch (e) {
       print('Error: $e');

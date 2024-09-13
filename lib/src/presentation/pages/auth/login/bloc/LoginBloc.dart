@@ -1,5 +1,6 @@
-import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
+import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginState.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart';
@@ -39,17 +40,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onLoginSubmit(LoginSubmit event, Emitter<LoginState> emit) async {
-    _responseController.add(Loading());
-    Resource response = await authUseCases.login.run(state.correo.value, state.contrasenia.value);
-    _responseController.add(response);
-    Future.delayed(Duration(seconds: 1), () {
-      _responseController.add(Initial());
-    });
-    print('Response : ${response}');
+    emit(state.copyWith(
+      response: Loading(),
+      formKey: formKey,
+    ));
+    Resource response = await authUseCases.login
+        .run(state.correo.value, state.contrasenia.value); //llamba envano al auth service y se colgaba
+    emit(state.copyWith(
+      response: response,
+      formKey: formKey,
+    ));
   }
 
-// controladores de la insercion de el login
-  // AuthService authService = AuthService(); se va con clean arquiture
   final _responseController = BehaviorSubject<Resource>();
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
