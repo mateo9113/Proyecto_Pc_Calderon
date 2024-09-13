@@ -1,4 +1,4 @@
 class ApiConfig {
   // ignore: constant_identifier_names
-  static const String API_PROYECTO = '192.168.1.6:3000';
+  static const String API_PROYECTO = '172.20.10.2:3000';
 }
