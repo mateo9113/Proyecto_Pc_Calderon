@@ -6,7 +6,6 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/L
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 
 // aqui se cambia de StatelessWidget a StatefulWidget que es para poder realizar
 //cambios de stado con el flutterbloc  y no con el set State o ctrl+s
@@ -23,8 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   //llamamos al metodo para iniciar para que se inicie solo o ejecute 1 vez
   @override
   void initState() {
-    //ejecuta 1 sola vez cuando carga la pantalla
-    // TODO:implement initState
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   LoginBloc?.dispose(); // para la validacion

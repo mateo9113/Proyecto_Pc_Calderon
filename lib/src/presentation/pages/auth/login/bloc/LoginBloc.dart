@@ -1,4 +1,4 @@
-import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
+// ignore: file_names
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
@@ -6,7 +6,6 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/L
 import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rxdart/rxdart.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   AuthUseCases authUseCases;

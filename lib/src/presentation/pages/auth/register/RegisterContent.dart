@@ -8,6 +8,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultTextFiel
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+// ignore: must_be_immutable
 class RegisterContent extends StatelessWidget {
   RegisterBloc? bloc;
   RegisterState state;
