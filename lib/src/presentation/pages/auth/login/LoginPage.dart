@@ -1,11 +1,12 @@
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginContent.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginResponse.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 // aqui se cambia de StatelessWidget a StatefulWidget que es para poder realizar
 //cambios de stado con el flutterbloc  y no con el set State o ctrl+s
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       //esqueleto
-      body: Container(
+      body: SizedBox(
         //se le agrega container para agregar colory espacio
         width: double.infinity, // para indicar el espacio que quiero ocupar
         // color: Colors.amber,
@@ -50,11 +51,21 @@ class _LoginPageState extends State<LoginPage> {
                 toastLength: Toast.LENGTH_LONG,
               );
             } else if (responseState is Success) {
+              _bloc?.add(LoginFormReset());
               Fluttertoast.showToast(msg: 'Login Exitoso', toastLength: Toast.LENGTH_LONG);
             }
           },
           child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
+              final responseState = state.response;
+              if (responseState is Loading) {
+                return Stack(
+                  children: [
+                    LoginContent(_bloc, state),
+                    Center(child: CircularProgressIndicator()),
+                  ],
+                );
+              }
               return LoginContent(_bloc, state);
             },
           ),

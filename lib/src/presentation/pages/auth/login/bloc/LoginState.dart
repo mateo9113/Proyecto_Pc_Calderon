@@ -1,5 +1,4 @@
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
-import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

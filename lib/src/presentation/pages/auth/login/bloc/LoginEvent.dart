@@ -11,6 +11,10 @@ class InitEvent extends LoginEvent {
   const InitEvent();
 }
 
+class LoginFormReset extends LoginEvent {
+  const LoginFormReset();
+}
+
 class CorreoChanged extends LoginEvent {
   final BlocFormItem correo;
   const CorreoChanged({required this.correo});

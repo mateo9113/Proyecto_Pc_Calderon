@@ -6,12 +6,11 @@ class DefaultButton extends StatelessWidget {
   Function() onPressed;
   Color color;
 
-  DefaultButton(
-      {required this.text, required this.onPressed, this.color = Colors.black});
+  DefaultButton({required this.text, required this.onPressed, this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 50,
       // margin: EdgeInsets.only(

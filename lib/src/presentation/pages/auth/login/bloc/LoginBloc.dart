@@ -16,6 +16,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<CorreoChanged>(_onCorreoChanged);
     on<ContraseniaChanged>(_onContraseniaChanged);
     on<LoginSubmit>(_onLoginSubmit);
+    on<LoginFormReset>(_onLoginFormReset);
   }
   final formKey = GlobalKey<FormState>();
 
@@ -23,10 +24,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(formKey: formKey));
   }
 
+  Future<void> _onLoginFormReset(LoginFormReset event, Emitter<LoginState> emit) async {
+    state.formKey?.currentState?.reset();
+  }
+
   Future<void> _onCorreoChanged(CorreoChanged event, Emitter<LoginState> emit) async {
     emit(
       state.copyWith(
-        correo: BlocFormItem(value: event.correo.value),
+        correo:
+            BlocFormItem(value: event.correo.value, error: event.correo.value.isNotEmpty ? null : 'Ingresa el Correo '),
         formKey: formKey,
       ),
     );
@@ -34,7 +40,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onContraseniaChanged(ContraseniaChanged event, Emitter<LoginState> emit) async {
     emit(state.copyWith(
-      contrasenia: BlocFormItem(value: event.contrasenia.value),
+      contrasenia: BlocFormItem(
+          value: event.contrasenia.value,
+          error: event.contrasenia.value.isNotEmpty && event.contrasenia.value.length >= 6
+              ? null
+              : 'Ingresa La Contraseña '),
       formKey: formKey,
     ));
   }
@@ -44,57 +54,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       response: Loading(),
       formKey: formKey,
     ));
+    Future.delayed(Duration(seconds: 4));
     Resource response = await authUseCases.login
         .run(state.correo.value, state.contrasenia.value); //llamba envano al auth service y se colgaba
     emit(state.copyWith(
       response: response,
       formKey: formKey,
     ));
-  }
-
-  final _responseController = BehaviorSubject<Resource>();
-  final _emailController = BehaviorSubject<String>();
-  final _passwordController = BehaviorSubject<String>();
-
-  Stream<String> get emailStream => _emailController.stream;
-  Stream<String> get passwordStream => _passwordController.stream;
-  Stream<Resource> get responseStream => _responseController.stream;
-
-  //metodos
-  void changeEmail(String email) {
-    if (email.isNotEmpty && email.length < 6) {
-      _emailController.sink.addError('La longitud de caracteres tiene que ser mayor a 6');
-    } else {
-      _emailController.sink.add(email);
-    }
-  }
-
-  void changePassword(String password) {
-    if (password.isNotEmpty && password.length < 6) {
-      _passwordController.sink.addError('error de Contraseña');
-    } else {
-      _passwordController.sink.add(password);
-    }
-  }
-
-  Stream<bool> get validateFrom =>
-      Rx.combineLatest2(emailStream, passwordStream, (a, b) => true); //combina los resultados
-  //combinar para validar
-
-  void login() async {
-    _responseController.add(Loading());
-    Resource response = await authUseCases.login.run(_emailController.value, _passwordController.value);
-    _responseController.add(response);
-    Future.delayed(Duration(seconds: 1), () {
-      _responseController.add(Initial());
-    });
-    print('Response : ${response}');
-  }
-
-  // metodo para borrar datos
-  void dispose() {
-//cuando pasemos a otra pantalla
-    changeEmail('');
-    changePassword('');
   }
 }
