@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _bloc = BlocProvider.of<RegisterBloc>(context);
 
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         // color: Colors.black, // o double.infinity

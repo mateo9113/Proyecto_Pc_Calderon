@@ -1,4 +1,5 @@
 import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
+import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginContent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
@@ -48,8 +49,13 @@ class _LoginPageState extends State<LoginPage> {
                 toastLength: Toast.LENGTH_LONG,
               );
             } else if (responseState is Success) {
+              final authResponse = responseState.data as AuthResponse;
               _bloc?.add(LoginFormReset());
-              Fluttertoast.showToast(msg: 'Login Exitoso', toastLength: Toast.LENGTH_LONG);
+              _bloc?.add(LoginSaveUserSession(authResponse: authResponse));
+              Fluttertoast.showToast(
+                msg: 'Login Exitoso',
+                toastLength: Toast.LENGTH_LONG,
+              );
             }
           },
           child: BlocBuilder<LoginBloc, LoginState>(

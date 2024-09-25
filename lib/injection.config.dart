@@ -8,6 +8,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:app_proyecto_pccalderon/src/data/dataSource/local/SharedPref.dart'
+    as _i699;
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart'
     as _i502;
 import 'package:app_proyecto_pccalderon/src/di/AppModule.dart' as _i459;
@@ -31,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final appModule = _$AppModule();
     gh.factory<_i502.AuthService>(() => appModule.authService);
+    gh.factory<_i699.SharedPref>(() => appModule.sharedPref);
     gh.factory<_i298.AuthRepository>(() => appModule.authRepository);
     gh.factory<_i993.AuthUseCases>(() => appModule.authUseCases);
     return this;
