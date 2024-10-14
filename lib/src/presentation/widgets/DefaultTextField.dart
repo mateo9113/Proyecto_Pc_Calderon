@@ -1,56 +1,52 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class DefaultTextField extends StatelessWidget {
   String label;
+  String? initialValue;
   String? errorText;
+  TextInputType? textInputType;
   IconData icon;
+  Color? color;
   Function(String text) onChanged;
   String? Function(String?)? validator;
   bool obscureText;
 
-  DefaultTextField({
-    //
-    super.key,
-    required this.label,
-    this.errorText,
-    this.validator,
-    required this.icon,
-    required this.onChanged,
-    this.obscureText = false,
-  });
+  DefaultTextField(
+      {super.key,
+      required this.label,
+      required this.icon,
+      required this.onChanged,
+      this.errorText,
+      this.validator,
+      this.obscureText = false,
+      this.initialValue,
+      this.color = Colors.white,
+      textInputType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText,
+      initialValue: initialValue,
       onChanged: (text) {
         onChanged(text);
       },
+      keyboardType: textInputType,
       validator: validator,
       decoration: InputDecoration(
         label: Text(
           label,
-          style: TextStyle(
-              //estilo
-              color: Colors.white),
+          style: TextStyle(color: color),
         ),
         errorText: errorText,
         prefixIcon: Icon(
-          //o sufixIcon para que cambie de lado
           icon,
-          color: Colors.white,
+          color: color,
         ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: color!)),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: color!)),
       ),
-      style: TextStyle(
-        color: Colors.white, //color de la letra ingresada
-      ),
+      style: TextStyle(color: color),
     );
   }
 }

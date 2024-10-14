@@ -50,12 +50,15 @@ class _LoginPageState extends State<LoginPage> {
               );
             } else if (responseState is Success) {
               final authResponse = responseState.data as AuthResponse;
-              _bloc?.add(LoginFormReset());
+              // _bloc?.add(LoginFormReset());
               _bloc?.add(LoginSaveUserSession(authResponse: authResponse));
-              Fluttertoast.showToast(
-                msg: 'Login Exitoso',
-                toastLength: Toast.LENGTH_LONG,
-              );
+              // Fluttertoast.showToast(
+              //   msg: 'Login Exitoso',
+              //   toastLength: Toast.LENGTH_LONG,
+              // );
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
+              });
             }
           },
           child: BlocBuilder<LoginBloc, LoginState>(

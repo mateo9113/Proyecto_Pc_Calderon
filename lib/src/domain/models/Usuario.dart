@@ -44,8 +44,6 @@ class Usuario {
         "imagen": imagen,
         "contrasenia": contrasenia,
         "notificacion_token": notificacionToken,
-        "roles": roles != null
-            ? List<dynamic>.from(roles!.map((x) => x.toJson()))
-            : [],
+        "roles": roles != null ? List<dynamic>.from(roles!.map((x) => x.toJson())) : [],
       };
 }
