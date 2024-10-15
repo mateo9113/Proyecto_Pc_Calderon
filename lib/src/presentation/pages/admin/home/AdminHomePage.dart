@@ -1,3 +1,4 @@
+import 'package:app_proyecto_pccalderon/main.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/list/AdminCategoryListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/bloc/AdminHomeBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/bloc/AdminHomeEvent.dart';
@@ -54,14 +55,14 @@ class _AdminHomePageState extends State<AdminHomePage> {
                       Navigator.pop(context);
                     },
                   ),
-                  // ListTile(
-                  //   title: Text('Productos'),
-                  //   selected: state.pageIndex == 1,
-                  //   onTap: () {
-                  //     _bloc?.add(AdminChangeDrawerPage(pageIndex: 1));
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
+                  ListTile(
+                    title: Text('Productos'),
+                    selected: state.pageIndex == 1,
+                    onTap: () {
+                      _bloc?.add(AdminChangeDrawerPage(pageIndex: 1));
+                      Navigator.pop(context);
+                    },
+                  ),
                   ListTile(
                     title: Text('Perfil de usuario'),
                     selected: state.pageIndex == 2,
@@ -74,7 +75,11 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     title: Text('Cerrar Sesion'),
                     onTap: () {
                       _bloc?.add(AdminLogout());
-                      Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyApp()),
+                        (route) => false,
+                      );
                     },
                   ),
                 ],

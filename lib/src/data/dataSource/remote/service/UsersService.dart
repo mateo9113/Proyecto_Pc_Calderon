@@ -22,7 +22,7 @@ class UsersService {
       String body = json.encode({
         'nombre': usuario.nombre,
         'apellido': usuario.apellido,
-        'telefono': usuario.telefono,
+        'phone': usuario.telefono,
       });
       final response = await http.put(url, headers: headers, body: body);
       final data = json.decode(response.body);
@@ -43,15 +43,15 @@ class UsersService {
     try {
       print('METODO ACTUALIZAR CON IMAGEN');
       // http://192.168.80.13:3000/users/5
-      Uri url = Uri.http(ApiConfig.API_PROYECTO, '/usuarios/acualizarImagen/$id');
+      Uri url = Uri.http(ApiConfig.API_PROYECTO, '/users/actualizarImagen/$id');
       final request = http.MultipartRequest('PUT', url);
       request.headers['Authorization'] = await token;
       request.files.add(http.MultipartFile('file', http.ByteStream(file.openRead().cast()), await file.length(),
           filename: basename(file.path), contentType: MediaType('image', 'jpg')));
-      request.fields['usuario'] = json.encode({
-        'nombre': usuario.nombre,
-        'apellido': usuario.apellido,
-        'telefono': usuario.telefono,
+      request.fields['user'] = json.encode({
+        'name': usuario.nombre,
+        'lastname': usuario.apellido,
+        'phone': usuario.telefono,
       });
       final response = await request.send();
       print('RESPONSE: ${response.statusCode}');

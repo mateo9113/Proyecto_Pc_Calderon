@@ -4,7 +4,7 @@ class Usuario {
   int? id;
   String nombre;
   String apellido;
-  String correo;
+  String? correo;
   String telefono;
   String? contrasenia;
   String? imagen;
@@ -15,7 +15,7 @@ class Usuario {
     this.id,
     required this.nombre,
     required this.apellido,
-    required this.correo,
+    this.correo,
     required this.telefono,
     this.contrasenia,
     this.imagen,
@@ -32,7 +32,7 @@ class Usuario {
         contrasenia: json["contrasenia"] ?? '',
         imagen: json["imagen"] ?? '',
         notificacionToken: json["notificacion_token"] ?? '',
-        roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
+        roles: json["roles"] != null ? List<Role>.from(json["roles"].map((x) => Role.fromJson(x))) : [],
       );
 
   Map<String, dynamic> toJson() => {

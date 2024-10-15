@@ -1,3 +1,4 @@
+import 'package:app_proyecto_pccalderon/src/domain/models/Usuario.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,11 +10,11 @@ abstract class ProfileUpdateEvent extends Equatable {
 }
 
 class ProfileUpdateInitEvent extends ProfileUpdateEvent {
-  // final User? user;
-  const ProfileUpdateInitEvent(/*{required this.user}*/);
-  // @override
-  // // TODO: implement props
-  // List<Object?> get props => [/*user*/];
+  final Usuario? usuario;
+  const ProfileUpdateInitEvent({required this.usuario});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [usuario];
 }
 
 // class ProfileUpdateUpdateUserSession extends ProfileUpdateEvent {

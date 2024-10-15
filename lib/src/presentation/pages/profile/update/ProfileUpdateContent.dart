@@ -99,7 +99,7 @@ class ProfileUpdateContent extends StatelessWidget {
       child: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          // bloc?.add(ProfileUpdateFormSubmit());
+          bloc?.add(ProfileUpdateFormSubmit());
         },
         child: Icon(
           Icons.check,

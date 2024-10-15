@@ -9,7 +9,6 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/blo
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/bloc/ProfileInfoBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/bloc/ProfileInfoEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/update/bloc/ProfileUpdateBloc.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/roles/bloc/RolesBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/roles/bloc/RolesEvent.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +20,7 @@ List<BlocProvider> blocProviders = [
   BlocProvider<AdminHomeBloc>(create: (context) => AdminHomeBloc(locator<AuthUseCases>())),
   BlocProvider<ProfileInfoBloc>(
       create: (context) => ProfileInfoBloc(locator<AuthUseCases>())..add(ProfileInfoGetUser())),
-  BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc()..add(ProfileUpdateInitEvent()))
+  BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCases>()))
   // BlocProvider<ProfileUpdateBloc>(
-  // create: (context) => ProfileUpdateBloc(locator<UsersUseCases>(), locator<AuthUseCases>())),
+  // create: (context) => ProfileUpdateBloc(locator<UsersUseCases>(), ())),
 ];

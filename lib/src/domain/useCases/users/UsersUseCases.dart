@@ -3,5 +3,7 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UpdateUserUseC
 class UsersUseCases {
   UpdateUserUseCase updateUser;
 
-  UsersUseCases({required this.updateUser});
+  UsersUseCases({
+    required this.updateUser,
+  });
 }

@@ -18,12 +18,12 @@ import 'package:injectable/injectable.dart';
 
 @module
 abstract class AppModule {
+  @injectable
   SharedPref get sharedPref => SharedPref();
 
-  @injectable
   Future<String> get token async {
     String token = "";
-    final userSession = await sharedPref.read('user');
+    final userSession = await sharedPref.read('usuario');
     if (userSession != null) {
       AuthResponse authResponse = AuthResponse.fromJson(userSession);
       token = authResponse.token;
