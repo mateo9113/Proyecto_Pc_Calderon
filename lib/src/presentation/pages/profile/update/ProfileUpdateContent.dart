@@ -196,9 +196,8 @@ class ProfileUpdateContent extends StatelessWidget {
                     fit: BoxFit.cover,
                   )
                 : FadeInImage.assetNetwork(
-                    placeholder: 'assets/img/admin.png',
-                    image:
-                        'https://firebasestorage.googleapis.com/v0/b/proyectoincos-16479.appspot.com/o/perfil.jpg?alt=media&token=377765ac-d5bc-434a-a0c7-ca1513d1495b',
+                    placeholder: 'assets/img/user_image.png',
+                    image: usuario!.imagen!,
                     fit: BoxFit.cover,
                     fadeInDuration: Duration(seconds: 1),
                   ),
