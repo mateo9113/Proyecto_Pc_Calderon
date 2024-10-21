@@ -1,10 +1,13 @@
 import 'package:app_proyecto_pccalderon/src/data/dataSource/local/SharedPref.dart';
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/CategoriesService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/UsersService.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/AuthRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
+import 'package:app_proyecto_pccalderon/src/data/repository/CategoriesRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/UsersRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
+import 'package:app_proyecto_pccalderon/src/domain/repository/CategoriesRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/UsersRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/GetUserSessionUseCase.dart';
@@ -12,6 +15,11 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LoginUseCase.da
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LogoutUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/CategoriesUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/CreateCategoryUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/DeleteCategoryUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/GetCategoriesUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/UpdateCategoryUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:injectable/injectable.dart';
@@ -38,10 +46,16 @@ abstract class AppModule {
   UsersService get usersService => UsersService(token);
 
   @injectable
+  CategoriesService get categoriesService => CategoriesService(token);
+
+  @injectable
   AuthRepository get authRepository => AuthRepositoryImpl(authService, sharedPref);
 
   @injectable
   UsersRepository get usersRepository => UsersRepositoryImpl(usersService);
+
+  @injectable
+  CategoriesRepository get categoriesRepository => CategoriesRepositoryImpl(categoriesService);
 
   @injectable
   AuthUseCases get authUseCases => AuthUseCases(
@@ -55,5 +69,13 @@ abstract class AppModule {
   @injectable
   UsersUseCases get usersUseCases => UsersUseCases(
         updateUser: UpdateUserUseCase(usersRepository),
+      );
+
+  @injectable
+  CategoriesUseCases get categoriesUseCases => CategoriesUseCases(
+        create: CreateCategoryUseCase(categoriesRepository),
+        getCategories: GetCategoriesUseCase(categoriesRepository),
+        update: UpdateCategoryUseCase(categoriesRepository),
+        delete: DeleteCategoryUseCase(categoriesRepository),
       );
 }
