@@ -13,6 +13,7 @@ class Success<T> extends Resource<T> {
 }
 
 class Error<T> extends Resource<T> {
+  @override
   final String message;
   Error(this.message);
 }

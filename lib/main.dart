@@ -3,6 +3,9 @@ import 'package:app_proyecto_pccalderon/src/blocProviders.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/create/AdminCategoryCreatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/update/AdminCategoryUpdatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/AdminHomePage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/create/AdminProductCreatePage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/list/AdminProductListPage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/update/AdminProductUpdatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/ClientHomePage.dart';
@@ -48,9 +51,9 @@ class MyApp extends StatelessWidget {
           'admin/home': (BuildContext context) => AdminHomePage(),
           'admin/category/create': (BuildContext context) => AdminCategoryCreatePage(),
           'admin/category/update': (BuildContext context) => AdminCategoryUpdatePage(),
-          // 'admin/product/list': (BuildContext context) => AdminProductListPage(),
-          // 'admin/product/create': (BuildContext context) => AdminProductCreatePage(),
-          // 'admin/product/update': (BuildContext context) => AdminProductUpdatePage(),
+          'admin/product/list': (BuildContext context) => AdminProductListPage(),
+          'admin/product/create': (BuildContext context) => AdminProductCreatePage(),
+          'admin/product/update': (BuildContext context) => AdminProductUpdatePage(),
           // 'client/product/list': (BuildContext context) => ClientProductListPage(),
           // 'client/product/detail': (BuildContext context) => ClientProductDetailPage(),
           // 'client/shopping_bag': (BuildContext context) => ClientShoppingBagPage(),
