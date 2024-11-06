@@ -5,12 +5,14 @@ import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AdminProductCreateState extends Equatable {
   final int idCategory;
   final BlocFormItem nombre;
   final BlocFormItem descripcion;
   final BlocFormItem precio;
   final GlobalKey<FormState>? formKey;
+  final BlocFormItem stock;
   File? file1;
   File? file2;
   final Resource? response;
@@ -20,6 +22,7 @@ class AdminProductCreateState extends Equatable {
       this.descripcion = const BlocFormItem(error: 'Ingresa la descripcion'),
       this.precio = const BlocFormItem(error: 'Ingresa el precio'),
       this.idCategory = 0,
+      this.stock = const BlocFormItem(error: 'Ingresa la Cantidad'),
       this.formKey,
       this.response,
       this.file1,
@@ -29,6 +32,7 @@ class AdminProductCreateState extends Equatable {
         nombre: nombre.value,
         descripcion: descripcion.value,
         precio: double.parse(precio.value),
+        stock: int.parse(stock.value),
         id_categoria: idCategory,
       );
 
@@ -47,6 +51,7 @@ class AdminProductCreateState extends Equatable {
       GlobalKey<FormState>? formKey,
       File? file1,
       File? file2,
+      BlocFormItem? stock,
       Resource? response}) {
     return AdminProductCreateState(
         idCategory: idCategory ?? this.idCategory,
@@ -55,10 +60,11 @@ class AdminProductCreateState extends Equatable {
         precio: precio ?? this.precio,
         file1: file1 ?? this.file1,
         file2: file2 ?? this.file2,
+        stock: stock ?? this.stock,
         formKey: formKey,
         response: response);
   }
 
   @override
-  List<Object?> get props => [idCategory, nombre, descripcion, precio, file1, file2, response];
+  List<Object?> get props => [idCategory, nombre, descripcion, precio, file1, file2, stock, response];
 }

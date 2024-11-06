@@ -28,6 +28,7 @@ class ProductsService {
       request.fields['descripcion'] = product.descripcion;
       request.fields['precio'] = product.precio.toString();
       request.fields['id_categoria'] = product.id_categoria.toString();
+      request.fields['stock'] = product.stock.toString();
       final response = await request.send();
       final data = json.decode(await response.stream.transform(utf8.decoder).first);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -70,6 +71,7 @@ class ProductsService {
         'nombre': product.nombre,
         'descripcion': product.descripcion,
         'precio': product.precio,
+        'stock': product.stock,
       });
       final response = await http.put(url, headers: headers, body: body);
       final data = json.decode(response.body);
@@ -100,6 +102,7 @@ class ProductsService {
       request.fields['nombre'] = product.nombre;
       request.fields['descripcion'] = product.descripcion;
       request.fields['precio'] = product.precio.toString();
+      request.fields['stock'] = product.stock.toString();
       request.fields['images_to_update'] = json.encode(imagesToUpdate); // ['0', '1']
       final response = await request.send();
       final data = json.decode(await response.stream.transform(utf8.decoder).first);

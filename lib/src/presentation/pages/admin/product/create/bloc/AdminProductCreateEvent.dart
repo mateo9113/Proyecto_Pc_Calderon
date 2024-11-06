@@ -37,6 +37,13 @@ class PriceChanged extends AdminProductCreateEvent {
   List<Object?> get props => [precio];
 }
 
+class CantidadChanged extends AdminProductCreateEvent {
+  final BlocFormItem stock;
+  const CantidadChanged({required this.stock});
+  @override
+  List<Object?> get props => [stock];
+}
+
 class FormSubmit extends AdminProductCreateEvent {
   const FormSubmit();
   @override

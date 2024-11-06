@@ -35,17 +35,18 @@ class _AdminProductListPageState extends State<AdminProductListPage> {
     category = ModalRoute.of(context)?.settings.arguments as Category;
     _bloc = BlocProvider.of<AdminProductListBloc>(context);
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, 'admin/product/create', arguments: category);
-          },
-          backgroundColor: Colors.black,
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'admin/product/create', arguments: category);
+        },
+        backgroundColor: Colors.black,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
         ),
-        body: BlocListener<AdminProductListBloc, AdminProductListState>(listener: (context, state) {
+      ),
+      body: BlocListener<AdminProductListBloc, AdminProductListState>(
+        listener: (context, state) {
           final responseState = state.response;
           if (responseState is Success) {
             if (responseState.data is bool) {
@@ -55,7 +56,8 @@ class _AdminProductListPageState extends State<AdminProductListPage> {
           if (responseState is Error) {
             Fluttertoast.showToast(msg: responseState.message, toastLength: Toast.LENGTH_LONG);
           }
-        }, child: BlocBuilder<AdminProductListBloc, AdminProductListState>(
+        },
+        child: BlocBuilder<AdminProductListBloc, AdminProductListState>(
           builder: (context, state) {
             final responseState = state.response;
             if (responseState is Loading) {
@@ -72,6 +74,8 @@ class _AdminProductListPageState extends State<AdminProductListPage> {
             }
             return Container();
           },
-        )));
+        ),
+      ),
+    );
   }
 }

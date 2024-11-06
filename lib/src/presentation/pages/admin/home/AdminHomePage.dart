@@ -5,6 +5,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/bloc/A
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/bloc/AdminHomeState.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/list/AdminProductListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/ProfileInfoPage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/roles/RolesPage.dart';
 // import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +22,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
   List<Widget> pageList = <Widget>[
     AdminCategoryListPage(),
-    AdminProductListPage(),
+    RolesPage(),
     ProfileInfoPage()
 
     // AdminOrderListPage(),
-    // RolesPage(),
-    // ProfileInfoPage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     },
                   ),
                   ListTile(
-                    title: Text('Productos'),
+                    title: Text('Roles'),
                     selected: state.pageIndex == 1,
                     onTap: () {
                       _bloc?.add(AdminChangeDrawerPage(pageIndex: 1));

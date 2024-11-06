@@ -29,6 +29,13 @@ class DescriptionChanged extends AdminProductUpdateEvent {
   List<Object?> get props => [descripcion];
 }
 
+class CantidadChanged extends AdminProductUpdateEvent {
+  final BlocFormItem stock;
+  const CantidadChanged({required this.stock});
+  @override
+  List<Object?> get props => [stock];
+}
+
 class PriceChanged extends AdminProductUpdateEvent {
   final BlocFormItem precio;
   const PriceChanged({required this.precio});

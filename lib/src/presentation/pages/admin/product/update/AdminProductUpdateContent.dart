@@ -9,6 +9,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultIconBack
 import 'package:app_proyecto_pccalderon/src/presentation/widgets/DefaultTextField.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AdminProductUpdateContent extends StatelessWidget {
   AdminProductUpdateBloc? bloc;
   AdminProductUpdateState state;
@@ -57,7 +58,14 @@ class AdminProductUpdateContent extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 35),
         child: Column(
-          children: [_textNewProduct(), _textFieldName(), _textFieldDescription(), _textFieldPrice(), _fabSubmit()],
+          children: [
+            _textNewProduct(),
+            _textFieldName(),
+            _textFieldDescription(),
+            _textFieldCantidad(),
+            _textFieldPrice(),
+            _fabSubmit()
+          ],
         ),
       ),
     );
@@ -134,6 +142,20 @@ class AdminProductUpdateContent extends StatelessWidget {
       },
       validator: (value) {
         return state.descripcion.error;
+      },
+      color: Colors.black,
+    );
+  }
+
+  Widget _textFieldCantidad() {
+    return DefaultTextField(
+      label: 'Stock del producto',
+      icon: Icons.ac_unit_rounded,
+      onChanged: (text) {
+        bloc?.add(CantidadChanged(stock: BlocFormItem(value: text)));
+      },
+      validator: (value) {
+        return state.stock.error;
       },
       color: Colors.black,
     );

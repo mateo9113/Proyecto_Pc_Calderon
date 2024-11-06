@@ -16,6 +16,7 @@ class AdminProductUpdateBloc extends Bloc<AdminProductUpdateEvent, AdminProductU
     on<NameChanged>(_onNameChanged);
     on<PriceChanged>(_onPriceChanged);
     on<DescriptionChanged>(_onDescriptionChanged);
+    on<CantidadChanged>(_onCantidadChanged);
     on<FormSubmit>(_onFormSubmit);
     on<ResetForm>(_onResetForm);
     on<PickImage>(_onPickImage);
@@ -54,6 +55,13 @@ class AdminProductUpdateBloc extends Bloc<AdminProductUpdateEvent, AdminProductU
         descripcion: BlocFormItem(
             value: event.descripcion.value,
             error: event.descripcion.value.isNotEmpty ? null : 'Ingresa la descripcion'),
+        formKey: formKey));
+  }
+
+  Future<void> _onCantidadChanged(CantidadChanged event, Emitter<AdminProductUpdateState> emit) async {
+    emit(state.copyWith(
+        stock:
+            BlocFormItem(value: event.stock.value, error: event.stock.value.isNotEmpty ? null : 'Ingresa la cantidad'),
         formKey: formKey));
   }
 

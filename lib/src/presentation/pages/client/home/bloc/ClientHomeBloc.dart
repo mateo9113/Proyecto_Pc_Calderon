@@ -1,6 +1,9 @@
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
+// import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
+// import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
+// import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientHomeBloc extends Bloc<ClientHomeEvent, ClientHomeState> {

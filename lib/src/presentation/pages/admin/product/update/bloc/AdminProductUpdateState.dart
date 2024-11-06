@@ -12,6 +12,7 @@ class AdminProductUpdateState extends Equatable {
   final BlocFormItem descripcion;
   final BlocFormItem precio;
   final GlobalKey<FormState>? formKey;
+  final BlocFormItem stock;
   File? file1;
   File? file2;
   final Resource? response;
@@ -22,6 +23,7 @@ class AdminProductUpdateState extends Equatable {
     this.descripcion = const BlocFormItem(error: 'Ingresa la descripcion'),
     this.precio = const BlocFormItem(error: 'Ingresa el precio'),
     this.idCategoria = 0,
+    this.stock = const BlocFormItem(error: 'Ingresa la Cantidad'),
     this.formKey,
     this.response,
     this.file1,
@@ -29,11 +31,13 @@ class AdminProductUpdateState extends Equatable {
   });
 
   toProduct() => Product(
-      id: id,
-      nombre: nombre.value,
-      descripcion: descripcion.value,
-      precio: double.parse(precio.value),
-      id_categoria: idCategoria);
+        id: id,
+        nombre: nombre.value,
+        descripcion: descripcion.value,
+        precio: double.parse(precio.value),
+        id_categoria: idCategoria,
+        stock: int.parse(stock.value),
+      );
 
   AdminProductUpdateState resetForm() {
     return AdminProductUpdateState(file1: null, file2: null);
@@ -48,6 +52,7 @@ class AdminProductUpdateState extends Equatable {
       GlobalKey<FormState>? formKey,
       File? file1,
       File? file2,
+      BlocFormItem? stock,
       Resource? response,
       List<int>? imagesToUpdate}) {
     return AdminProductUpdateState(
@@ -58,11 +63,12 @@ class AdminProductUpdateState extends Equatable {
       precio: precio ?? this.precio,
       file1: file1 ?? this.file1,
       file2: file2 ?? this.file2,
+      stock: stock ?? this.stock,
       formKey: formKey,
       response: response,
     );
   }
 
   @override
-  List<Object?> get props => [idCategoria, nombre, descripcion, precio, file1, file2, response];
+  List<Object?> get props => [idCategoria, nombre, descripcion, precio, stock, file1, file2, response];
 }

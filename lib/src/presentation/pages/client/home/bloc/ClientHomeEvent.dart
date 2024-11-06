@@ -8,7 +8,7 @@ abstract class ClientHomeEvent extends Equatable {
 
 class ChangeDrawerPage extends ClientHomeEvent {
   final int pageIndex;
-  const ChangeDrawerPage({required this.pageIndex});
+  const ChangeDrawerPage({ required this.pageIndex });
   @override
   List<Object?> get props => [pageIndex];
 }

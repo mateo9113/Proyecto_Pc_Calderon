@@ -38,7 +38,11 @@ class AdminProductListItem extends StatelessWidget {
             Text(product?.descripcion ?? ''),
             SizedBox(height: 5),
             Text(
-              '\$ ${product?.precio.toString() ?? ''}',
+              ' Bs. ${product?.precio.toString() ?? ''}',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Catidad : ${product?.stock.toString() ?? ''}',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],

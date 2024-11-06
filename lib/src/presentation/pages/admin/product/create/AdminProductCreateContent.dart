@@ -55,7 +55,14 @@ class AdminProductCreateContent extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 35),
         child: Column(
-          children: [_textNewProduct(), _textFieldName(), _textFieldDescription(), _textFieldPrice(), _fabSubmit()],
+          children: [
+            _textNewProduct(),
+            _textFieldName(),
+            _textFieldDescription(),
+            _textFieldPrice(),
+            _textFieldCantidad(),
+            _fabSubmit()
+          ],
         ),
       ),
     );
@@ -129,6 +136,20 @@ class AdminProductCreateContent extends StatelessWidget {
       },
       validator: (value) {
         return state.descripcion.error;
+      },
+      color: Colors.black,
+    );
+  }
+
+  Widget _textFieldCantidad() {
+    return DefaultTextField(
+      label: 'Stock del producto',
+      icon: Icons.ac_unit_rounded,
+      onChanged: (text) {
+        bloc?.add(CantidadChanged(stock: BlocFormItem(value: text)));
+      },
+      validator: (value) {
+        return state.stock.error;
       },
       color: Colors.black,
     );
