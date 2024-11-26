@@ -29,8 +29,24 @@ class ProductsRepositoryImpl implements ProductsRepository {
     }
   }
 
+  // Implementación del nuevo método
+  @override
+  Future<Resource<bool>> addSNToProduct(String codEAN, List<String> serialNumbers) {
+    return productsService.addSNToProduct(codEAN, serialNumbers);
+  }
+
   @override
   Future<Resource<bool>> delete(int id) {
     return productsService.delete(id);
+  }
+
+  @override
+  Future<Resource<bool>> updateProductStock(int productId, int newStock) async {
+    try {
+      await productsService.updateStock(productId, newStock);
+      return Success(true); // Devuelve un éxito si la operación fue exitosa
+    } catch (error) {
+      return Error("Error al actualizar el stock: $error");
+    }
   }
 }

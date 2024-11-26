@@ -30,7 +30,6 @@ class _ClientHomePageState extends State<ClientHomePage> {
 
   List<Widget> pageList = <Widget>[
     ClientCategoryListPage(),
-    // ClientOrderListPage(),
     ProfileInfoPage(),
     RolesPage(),
     ClienteListPage(),

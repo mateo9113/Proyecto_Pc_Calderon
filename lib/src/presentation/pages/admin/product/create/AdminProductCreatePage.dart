@@ -33,15 +33,15 @@ class _AdminProductCreatePageState extends State<AdminProductCreatePage> {
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<AdminProductCreateBloc>(context);
     category = ModalRoute.of(context)?.settings.arguments as Category;
+
     return Scaffold(
       body: BlocListener<AdminProductCreateBloc, AdminProductCreateState>(
         listener: (context, state) {
           final responseState = state.response;
           if (responseState is Success) {
-            // context.read<AdminCategoryListBloc>().add(GetCategories());
             context.read<AdminProductListBloc>().add(GetProductsByCategory(idCategory: category!.id!));
             _bloc?.add(ResetForm());
-            Fluttertoast.showToast(msg: 'El producto se creo correctamente', toastLength: Toast.LENGTH_LONG);
+            Fluttertoast.showToast(msg: 'El producto se creó correctamente', toastLength: Toast.LENGTH_LONG);
           } else if (responseState is Error) {
             Fluttertoast.showToast(msg: responseState.message, toastLength: Toast.LENGTH_LONG);
           }

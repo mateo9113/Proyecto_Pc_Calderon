@@ -7,4 +7,5 @@ abstract class ShoppingBagRepository {
   Future<void> deleteItem(Product product);
   Future<void> deleteShoppingBag();
   Future<double> getTotal();
+  Future<void> updateProductStock(int productId, int newStock);
 }

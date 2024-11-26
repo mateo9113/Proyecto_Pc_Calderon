@@ -7,6 +7,15 @@ abstract class ClientProductDetailEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class CheckProductStock extends ClientProductDetailEvent {
+  final Product product;
+
+  const CheckProductStock(this.product);
+
+  @override
+  List<Object?> get props => [product];
+}
+
 class ResetState extends ClientProductDetailEvent {
   const ResetState();
 }
@@ -19,13 +28,16 @@ class GetProducts extends ClientProductDetailEvent {
 }
 
 class AddItem extends ClientProductDetailEvent {
-  const AddItem();
+  final Product product;
+
+  const AddItem(this.product);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [product];
 }
 
 class SubtractItem extends ClientProductDetailEvent {
-  const SubtractItem();
+  const SubtractItem(Product product);
   @override
   List<Object?> get props => [];
 }

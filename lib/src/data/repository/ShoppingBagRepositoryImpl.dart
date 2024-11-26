@@ -1,11 +1,12 @@
 import 'package:app_proyecto_pccalderon/src/data/dataSource/local/SharedPref.dart';
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ProductsService.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/Product.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ShoppingBagRepository.dart';
 
 class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
   SharedPref sharedPref;
-
-  ShoppingBagRepositoryImpl(this.sharedPref);
+  final ProductsService productsService; //
+  ShoppingBagRepositoryImpl(this.sharedPref, this.productsService);
 
   @override
   Future<void> add(Product product) async {
@@ -67,5 +68,11 @@ class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
       total = total + (product.quantity! * product.precio);
     }
     return total;
+  }
+
+  @override
+  Future<void> updateProductStock(int productId, int newStock) async {
+    // Llama al servicio para actualizar el stock en el backend
+    await productsService.updateStock(productId, newStock);
   }
 }

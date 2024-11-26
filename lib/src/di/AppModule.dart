@@ -4,6 +4,7 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/Clien
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/OrdersService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ProductsService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/UsersService.dart';
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/VentasService.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/AuthRepositoryImpl.dart';
 
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
@@ -12,18 +13,21 @@ import 'package:app_proyecto_pccalderon/src/data/repository/ClienteRepositoryImp
 import 'package:app_proyecto_pccalderon/src/data/repository/ProductsRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/ShoppingBagRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/UsersRepositoryImpl.dart';
+import 'package:app_proyecto_pccalderon/src/data/repository/VentasRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/CategoriesRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ClienteRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ShoppingBagRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/UsersRepository.dart';
+import 'package:app_proyecto_pccalderon/src/domain/repository/VentaRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/AddShoppingBagUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/DeleteItemShoppingBagUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/DeleteShoppingBagUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/GetProductsShoppingBagUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/GetTotalShoppingBagUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/ShoppingBagUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/UpdateProductStockUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/GetUserSessionUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/LoginUseCase.dart';
@@ -48,6 +52,9 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/products/UpdateProdu
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ProductsRepository.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/CreateVentaUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/GetVentasUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/VentasUseCases.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -82,6 +89,10 @@ abstract class AppModule {
   @injectable
   ClienteService get clienteService => ClienteService(token);
 
+  //**Nuevo: Servicio de Ventas**
+  @injectable
+  VentasService get ventasService => VentasService(token);
+
   @injectable
   AuthRepository get authRepository => AuthRepositoryImpl(authService, sharedPref);
 
@@ -93,11 +104,14 @@ abstract class AppModule {
   @injectable
   ProductsRepository get productsRepository => ProductsRepositoryImpl(productsService);
   @injectable
-  ShoppingBagRepository get shoppingBagRepository => ShoppingBagRepositoryImpl(sharedPref);
+  ShoppingBagRepository get shoppingBagRepository => ShoppingBagRepositoryImpl(sharedPref, productsService);
 
   @injectable
   ClienteRepository get clienteRepository => ClienteRepositoryImpl(clienteService);
 
+// **Nuevo: Repositorio de Ventas**
+  @injectable
+  VentaRepository get ventaRepository => VentaRepositoryImpl(ventasService);
   @injectable
   AuthUseCases get authUseCases => AuthUseCases(
         login: LoginUseCase(authRepository),
@@ -128,11 +142,20 @@ abstract class AppModule {
       delete: DeleteProductUseCase(productsRepository));
 
   ShoppingBagUseCases get shoppingBagUseCases => ShoppingBagUseCases(
-      add: AddShoppingBagUseCase(shoppingBagRepository),
-      getProducts: GetProductsShoppingBagUseCase(shoppingBagRepository),
-      deleteItem: DeleteItemShoppinBagUseCase(shoppingBagRepository),
-      deleteShoppingBag: deleteShoppingBagUseCase(shoppingBagRepository),
-      getTotal: GetTotalShoppingBagUseCase(shoppingBagRepository));
+        add: AddShoppingBagUseCase(shoppingBagRepository),
+        getProducts: GetProductsShoppingBagUseCase(shoppingBagRepository),
+        deleteItem: DeleteItemShoppinBagUseCase(shoppingBagRepository),
+        deleteShoppingBag: deleteShoppingBagUseCase(shoppingBagRepository),
+        getTotal: GetTotalShoppingBagUseCase(shoppingBagRepository),
+        getClients: GetClientesUseCase(clienteRepository), // Aquí inicializas el nuevo caso de uso
+        updateProductStock: UpdateProductStockUseCase(productsRepository), // Añade aquí
+      );
+
+  @injectable
+  VentasUseCases get ventasUseCases => VentasUseCases(
+        createVenta: CreateVentaUseCase(ventaRepository),
+        getVentas: GetVentasUseCase(ventaRepository),
+      );
 
   @injectable
   ClientesUseCases get clientesUseCases => ClientesUseCases(

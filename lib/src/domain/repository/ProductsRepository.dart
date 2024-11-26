@@ -8,4 +8,7 @@ abstract class ProductsRepository {
   Future<Resource<List<Product>>> getProductsByCategory(int idCategory);
   Future<Resource<Product>> update(int id, Product product, List<File>? files, List<int>? imagesToUpdate);
   Future<Resource<bool>> delete(int id);
+  // Nuevo método para agregar SN
+  Future<Resource<bool>> addSNToProduct(String codEAN, List<String> serialNumbers);
+  Future<Resource<bool>> updateProductStock(int productId, int newStock);
 }

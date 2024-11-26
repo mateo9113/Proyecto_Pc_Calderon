@@ -22,6 +22,8 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/Produ
     as _i606;
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/UsersService.dart'
     as _i1072;
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/VentasService.dart'
+    as _i864;
 import 'package:app_proyecto_pccalderon/src/di/AppModule.dart' as _i459;
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart'
     as _i298;
@@ -35,6 +37,8 @@ import 'package:app_proyecto_pccalderon/src/domain/repository/ShoppingBagReposit
     as _i957;
 import 'package:app_proyecto_pccalderon/src/domain/repository/UsersRepository.dart'
     as _i102;
+import 'package:app_proyecto_pccalderon/src/domain/repository/VentaRepository.dart'
+    as _i13;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.dart'
     as _i993;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/CategoriesUseCases.dart'
@@ -47,6 +51,8 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/Shopping
     as _i536;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart'
     as _i495;
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/VentasUseCases.dart'
+    as _i78;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -70,6 +76,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i606.ProductsService>(() => appModule.productsService);
     gh.factory<_i666.OrdersService>(() => appModule.ordersService);
     gh.factory<_i210.ClienteService>(() => appModule.clienteService);
+    gh.factory<_i864.VentasService>(() => appModule.ventasService);
     gh.factory<_i298.AuthRepository>(() => appModule.authRepository);
     gh.factory<_i102.UsersRepository>(() => appModule.usersRepository);
     gh.factory<_i537.CategoriesRepository>(
@@ -78,11 +85,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i957.ShoppingBagRepository>(
         () => appModule.shoppingBagRepository);
     gh.factory<_i741.ClienteRepository>(() => appModule.clienteRepository);
+    gh.factory<_i13.VentaRepository>(() => appModule.ventaRepository);
     gh.factory<_i993.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i495.UsersUseCases>(() => appModule.usersUseCases);
     gh.factory<_i449.CategoriesUseCases>(() => appModule.categoriesUseCases);
     gh.factory<_i950.ProductsUseCases>(() => appModule.productsUseCases);
     gh.factory<_i536.ShoppingBagUseCases>(() => appModule.shoppingBagUseCases);
+    gh.factory<_i78.VentasUseCases>(() => appModule.ventasUseCases);
     gh.factory<_i81.ClientesUseCases>(() => appModule.clientesUseCases);
     return this;
   }

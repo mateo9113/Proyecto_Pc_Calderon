@@ -11,6 +11,7 @@ class Product {
   String? imagen1;
   String? imagen2;
   int id_categoria;
+  String codEAN;
   double precio;
   int stock;
   int? quantity;
@@ -22,6 +23,7 @@ class Product {
       this.imagen1,
       this.imagen2,
       required this.id_categoria,
+      required this.codEAN,
       required this.precio,
       required this.stock,
       this.quantity});
@@ -41,6 +43,7 @@ class Product {
         descripcion: json["descripcion"] ?? '',
         imagen1: json["imagen1"],
         imagen2: json["imagen2"],
+        codEAN: json["cod_EAN"] ?? '',
         id_categoria: json["id_categoria"] is String ? int.parse(json["id_categoria"]) : json["id_categoria"],
         precio: json["precio"] is String
             ? double.parse(json["precio"])
@@ -62,6 +65,7 @@ class Product {
         "imagen1": imagen1,
         "imagen2": imagen2,
         "id_categoria": id_categoria,
+        "cod_EAN": codEAN, // Mapeo para enviar al backend
         "precio": precio,
         "stock": stock,
         "quantity": quantity,

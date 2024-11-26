@@ -1,6 +1,7 @@
 import 'package:app_proyecto_pccalderon/src/domain/models/Role.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RolesItem extends StatelessWidget {
   Role role;
   RolesItem(this.role);

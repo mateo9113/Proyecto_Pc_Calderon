@@ -30,15 +30,46 @@ class _ClientShoppingBagPageState extends State<ClientShoppingBagPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Venta'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.people), // Icono para acceder a la lista de clientes
+            onPressed: () {
+              _bloc?.add(GetClients()); // Disparar el evento para obtener clientes
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return BlocBuilder<ClientShoppingBagBloc, ClientShoppingBagState>(
+                    builder: (context, state) {
+                      if (state.clients == null) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state.clients!.isEmpty) {
+                        return Center(child: Text('No hay clientes disponibles.'));
+                      }
+                      return ListView.builder(
+                        itemCount: state.clients!.length,
+                        itemBuilder: (context, index) {
+                          final cliente = state.clients![index];
+                          return ListTile(
+                            title: Text(cliente.nombre), // Cambia 'nombre' según tu modelo
+                            onTap: () {
+                              _bloc?.add(SelectClient(selectedClient: cliente)); // Seleccionar cliente
+                              Navigator.pop(context); // Cerrar el modal
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 210, 209, 207),
-          // INTEGRAR FONDO O IAMMGEN
-          // image: DecorationImage(
-          //   image: AssetImage("assets/img/background1.jpg"), // Ruta de la imagen de fondo
-          //   fit: BoxFit.cover,
-          // ),
         ),
         child: BlocBuilder<ClientShoppingBagBloc, ClientShoppingBagState>(
           builder: (context, state) {
@@ -53,7 +84,7 @@ class _ClientShoppingBagPageState extends State<ClientShoppingBagPage> {
       ),
       bottomNavigationBar: BlocBuilder<ClientShoppingBagBloc, ClientShoppingBagState>(
         builder: (context, state) {
-          return ClientShoppingBagBottomBar(state);
+          return ClientShoppingBagBottomBar(state); // Mantén solo la barra personalizada
         },
       ),
     );

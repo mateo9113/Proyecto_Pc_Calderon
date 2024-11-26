@@ -61,6 +61,7 @@ class AdminProductCreateContent extends StatelessWidget {
             _textFieldDescription(),
             _textFieldPrice(),
             _textFieldCantidad(),
+            _textFieldCodEAN(),
             _fabSubmit()
           ],
         ),
@@ -218,6 +219,20 @@ class AdminProductCreateContent extends StatelessWidget {
                     )),
         ),
       ),
+    );
+  }
+
+  Widget _textFieldCodEAN() {
+    return DefaultTextField(
+      label: 'Código EAN',
+      icon: Icons.qr_code,
+      onChanged: (text) {
+        bloc?.add(CodEANChanged(codEAN: BlocFormItem(value: text))); // Evento relacionado con `cod_EAN`
+      },
+      validator: (value) {
+        return state.codEAN.error; // Validación del campo
+      },
+      color: Colors.black,
     );
   }
 

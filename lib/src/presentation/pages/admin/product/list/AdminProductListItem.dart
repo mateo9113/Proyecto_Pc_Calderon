@@ -45,12 +45,22 @@ class AdminProductListItem extends StatelessWidget {
               'Catidad : ${product?.stock.toString() ?? ''}',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            Text(
+              'EAN : ${product?.codEAN.toString() ?? ''}',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         // contentPadding: EdgeInsets.only(left: 10, right: 10, top: 10),
         trailing: Wrap(
           direction: Axis.horizontal,
           children: [
+            // IconButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, 'admin/product/add_sn', arguments: product);
+            //   },
+            //   icon: Icon(Icons.add),
+            // ),
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, 'admin/product/update', arguments: product);

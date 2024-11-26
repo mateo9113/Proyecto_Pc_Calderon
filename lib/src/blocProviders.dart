@@ -5,6 +5,7 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/Categorie
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/ClientesUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/ProductsUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/VentasUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/list/bloc/AdminCategoryListBloc.dart';
@@ -54,7 +55,11 @@ List<BlocProvider> blocProviders = [
   BlocProvider<ClientCategoryListBloc>(create: (context) => ClientCategoryListBloc(locator<CategoriesUseCases>())),
   BlocProvider<ClientProductListBloc>(create: (context) => ClientProductListBloc(locator<ProductsUseCases>())),
   BlocProvider<ClientProductDetailBloc>(create: (context) => ClientProductDetailBloc(locator<ShoppingBagUseCases>())),
-  BlocProvider<ClientShoppingBagBloc>(create: (context) => ClientShoppingBagBloc(locator<ShoppingBagUseCases>())),
+  BlocProvider<ClientShoppingBagBloc>(
+      create: (context) => ClientShoppingBagBloc(
+            locator<ShoppingBagUseCases>(),
+            locator<VentasUseCases>(),
+          )),
 //cliente
   BlocProvider<ClienteListBloc>(create: (context) => ClienteListBloc(locator<ClientesUseCases>())),
   BlocProvider<ClienteUpdateBloc>(create: (context) => ClienteUpdateBloc(locator<ClientesUseCases>())),

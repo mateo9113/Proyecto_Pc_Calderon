@@ -1,6 +1,5 @@
 import 'package:app_proyecto_pccalderon/src/domain/models/Category.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/utils/BlocFormItem.dart';
-
 import 'package:equatable/equatable.dart';
 
 abstract class AdminProductCreateEvent extends Equatable {
@@ -42,6 +41,13 @@ class CantidadChanged extends AdminProductCreateEvent {
   const CantidadChanged({required this.stock});
   @override
   List<Object?> get props => [stock];
+}
+
+class CodEANChanged extends AdminProductCreateEvent {
+  final BlocFormItem codEAN;
+  const CodEANChanged({required this.codEAN});
+  @override
+  List<Object?> get props => [codEAN];
 }
 
 class FormSubmit extends AdminProductCreateEvent {

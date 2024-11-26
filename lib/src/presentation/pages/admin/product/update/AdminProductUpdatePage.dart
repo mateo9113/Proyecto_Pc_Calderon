@@ -25,7 +25,13 @@ class _AdminProductUpdatePageState extends State<AdminProductUpdatePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _bloc?.add(AdminProductUpdateInitEvent(product: product));
+      if (product != null) {
+        _bloc?.add(
+          AdminProductUpdateInitEvent(
+            product: product!,
+          ),
+        );
+      }
     });
   }
 
@@ -45,8 +51,7 @@ class _AdminProductUpdatePageState extends State<AdminProductUpdatePage> {
           final responseState = state.response;
           if (responseState is Success) {
             context.read<AdminProductListBloc>().add(GetProductsByCategory(idCategory: product!.id_categoria));
-            // _bloc?.add(ResetForm());
-            Fluttertoast.showToast(msg: 'El producto se actualizo correctamente', toastLength: Toast.LENGTH_LONG);
+            Fluttertoast.showToast(msg: 'El producto se actualizó correctamente', toastLength: Toast.LENGTH_LONG);
           } else if (responseState is Error) {
             Fluttertoast.showToast(msg: responseState.message, toastLength: Toast.LENGTH_LONG);
           }

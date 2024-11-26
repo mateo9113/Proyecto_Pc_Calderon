@@ -3,7 +3,8 @@ import 'package:app_proyecto_pccalderon/src/blocProviders.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/create/AdminCategoryCreatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/update/AdminCategoryUpdatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/AdminHomePage.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/order/detail/AdminOrderDetailPage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/add_sn/AdminProductAddSNPage.dart';
+// import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/order/detail/AdminOrderDetailPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/create/AdminProductCreatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/list/AdminProductListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/update/AdminProductUpdatePage.dart';
@@ -14,7 +15,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/client/cliente/cr
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/cliente/list/ClienteListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/cliente/update/ClienteUpdatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/ClientHomePage.dart';
-import 'package:app_proyecto_pccalderon/src/presentation/pages/client/order/detail/ClientOrderDetailPage.dart';
+// import 'package:app_proyecto_pccalderon/src/presentation/pages/client/order/detail/ClientOrderDetailPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/product/detail/ClientProductDetailPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/product/list/ClientProductListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/ProfileInfoPage.dart';
@@ -66,16 +67,9 @@ class MyApp extends StatelessWidget {
           'client/product/list': (BuildContext context) => ClientProductListPage(),
           'client/product/detail': (BuildContext context) => ClientProductDetailPage(),
           'client/shopping_bag': (BuildContext context) => ClientShoppingBagPage(),
-          // 'client/address/list': (BuildContext context) => ClientAddressListPage(),
-          // 'client/address/create': (BuildContext context) => ClientAddressCreatePage(),
-          // 'client/payment/form': (BuildContext context) => ClientPaymentFormPage(),
-          // 'client/payment/installments': (BuildContext context) => ClientPaymentInstallmentsPage(),
-          // 'client/payment/status': (BuildContext context) => ClientPaymentStatusPage(),
-          'admin/order/detail': (BuildContext context) => AdminOrderDetailPage(),
-          'client/order/detail': (BuildContext context) => ClientOrderDetailPage(),
-          //cliente
           'client/cliente/update': (BuildContext context) => ClienteUpdatePage(),
           'client/cliente/create': (BuildContext context) => ClienteCreatePage(),
+          'admin/product/add_sn': (context) => AdminProductAddSNPage(),
         }, //rutas
       ),
     );

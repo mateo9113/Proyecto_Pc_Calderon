@@ -119,6 +119,40 @@ class ProductsService {
     }
   }
 
+  Future<Resource<bool>> addSNToProduct(String codEAN, List<String> serialNumbers) async {
+    try {
+      // Configura la URL para el endpoint del backend
+      Uri url = Uri.http(ApiConfig.API_PROYECTO, '/producto/add-sn');
+
+      // Configura los headers con el token de autorización
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization": await token,
+      };
+
+      // Construye el cuerpo de la solicitud
+      String body = json.encode({
+        'codEAN': codEAN, // Código EAN del producto
+        'series': serialNumbers, // Lista de números de serie
+      });
+
+      // Envía la solicitud POST al backend
+      final response = await http.post(url, headers: headers, body: body);
+
+      // Verifica la respuesta del servidor
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Success(true); // Devuelve éxito si la operación fue exitosa
+      } else {
+        // Maneja errores si el backend devuelve un estado diferente de 200 o 201
+        final data = json.decode(response.body);
+        return Error(listToString(data['message'] ?? 'Error desconocido'));
+      }
+    } catch (e) {
+      print('Error al agregar números de serie: $e');
+      return Error(e.toString()); // Devuelve un error en caso de excepción
+    }
+  }
+
   Future<Resource<bool>> delete(int id) async {
     try {
       Uri url = Uri.http(ApiConfig.API_PROYECTO, '/producto/$id');
@@ -135,5 +169,35 @@ class ProductsService {
       print('Error: $e');
       return Error(e.toString());
     }
+  }
+
+  Future<Object> updateStock(int productId, int newStock) async {
+    try {
+      Uri url = Uri.http(ApiConfig.API_PROYECTO, '/producto/$productId/stock');
+
+      final request = http.Request('PUT', url);
+      request.headers['Authorization'] = await token;
+      request.headers['Content-Type'] = 'application/json';
+      request.body = json.encode({'stock': newStock});
+
+      final response = await request.send();
+      final responseData = await response.stream.bytesToString();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print("Stock actualizado exitosamente: $responseData");
+        return Success(true);
+      } else {
+        print("Error al actualizar el stock: $responseData");
+        return Error("Error: $responseData");
+      }
+    } catch (e) {
+      print('Error en la solicitud de actualización: $e');
+      return Error(e.toString());
+    }
+  }
+
+  Future<String> getToken() async {
+    // Implementa tu lógica para obtener el token
+    return "tu_token";
   }
 }

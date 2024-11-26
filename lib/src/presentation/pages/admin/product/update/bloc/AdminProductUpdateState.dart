@@ -11,6 +11,7 @@ class AdminProductUpdateState extends Equatable {
   final BlocFormItem nombre;
   final BlocFormItem descripcion;
   final BlocFormItem precio;
+  final BlocFormItem codEAN; // Nuevo campo
   final GlobalKey<FormState>? formKey;
   final BlocFormItem stock;
   File? file1;
@@ -22,6 +23,7 @@ class AdminProductUpdateState extends Equatable {
     this.nombre = const BlocFormItem(error: 'Ingresa el nombre'),
     this.descripcion = const BlocFormItem(error: 'Ingresa la descripcion'),
     this.precio = const BlocFormItem(error: 'Ingresa el precio'),
+    this.codEAN = const BlocFormItem(error: 'Ingresa el código EAN'), // Inicialización
     this.idCategoria = 0,
     this.stock = const BlocFormItem(error: 'Ingresa la Cantidad'),
     this.formKey,
@@ -30,6 +32,7 @@ class AdminProductUpdateState extends Equatable {
     this.file2,
   });
 
+  // Método para convertir el estado en un Producto
   toProduct() => Product(
         id: id,
         nombre: nombre.value,
@@ -37,30 +40,37 @@ class AdminProductUpdateState extends Equatable {
         precio: double.parse(precio.value),
         id_categoria: idCategoria,
         stock: int.parse(stock.value),
+        codEAN: codEAN.value, // Asignación del nuevo campo
       );
 
+  // Método para resetear el formulario
   AdminProductUpdateState resetForm() {
-    return AdminProductUpdateState(file1: null, file2: null);
+    return AdminProductUpdateState(
+        file1: null, file2: null, codEAN: const BlocFormItem(error: 'Ingresa el código EAN'));
   }
 
-  AdminProductUpdateState copyWith(
-      {int? id,
-      int? idCategoria,
-      BlocFormItem? nombre,
-      BlocFormItem? descripcion,
-      BlocFormItem? precio,
-      GlobalKey<FormState>? formKey,
-      File? file1,
-      File? file2,
-      BlocFormItem? stock,
-      Resource? response,
-      List<int>? imagesToUpdate}) {
+  // Método para copiar el estado con modificaciones
+  AdminProductUpdateState copyWith({
+    int? id,
+    int? idCategoria,
+    BlocFormItem? nombre,
+    BlocFormItem? descripcion,
+    BlocFormItem? precio,
+    BlocFormItem? codEAN, // Nuevo campo
+    GlobalKey<FormState>? formKey,
+    File? file1,
+    File? file2,
+    BlocFormItem? stock,
+    Resource? response,
+    List<int>? imagesToUpdate,
+  }) {
     return AdminProductUpdateState(
       id: id ?? this.id,
       idCategoria: idCategoria ?? this.idCategoria,
       nombre: nombre ?? this.nombre,
       descripcion: descripcion ?? this.descripcion,
       precio: precio ?? this.precio,
+      codEAN: codEAN ?? this.codEAN, // Copia del nuevo campo
       file1: file1 ?? this.file1,
       file2: file2 ?? this.file2,
       stock: stock ?? this.stock,
@@ -70,5 +80,5 @@ class AdminProductUpdateState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [idCategoria, nombre, descripcion, precio, stock, file1, file2, response];
+  List<Object?> get props => [id, idCategoria, nombre, descripcion, precio, codEAN, stock, file1, file2, response];
 }
