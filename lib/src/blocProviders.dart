@@ -27,6 +27,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/product/detail/bloc/ClientProductDetailBloc.dart';
 // import 'package:app_proyecto_pccalderon/src/presentation/pages/client/product/detail/bloc/ClientProductDetailBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/product/list/bloc/ClientProductListBloc.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/client/venta/list/bloc/VentaListBloc.dart';
 
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/bloc/ProfileInfoBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/bloc/ProfileInfoEvent.dart';
@@ -64,4 +65,7 @@ List<BlocProvider> blocProviders = [
   BlocProvider<ClienteListBloc>(create: (context) => ClienteListBloc(locator<ClientesUseCases>())),
   BlocProvider<ClienteUpdateBloc>(create: (context) => ClienteUpdateBloc(locator<ClientesUseCases>())),
   BlocProvider<ClienteCreateBloc>(create: (context) => ClienteCreateBloc(locator<ClientesUseCases>())),
+
+// VENTAS
+  BlocProvider<VentaListBloc>(create: (context) => VentaListBloc(locator<VentasUseCases>())),
 ];

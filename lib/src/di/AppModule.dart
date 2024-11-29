@@ -53,6 +53,7 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UpdateUserUseC
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ProductsRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/CreateVentaUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/DeleteVentaUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/GetVentasUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/VentasUseCases.dart';
 import 'package:injectable/injectable.dart';
@@ -155,6 +156,7 @@ abstract class AppModule {
   VentasUseCases get ventasUseCases => VentasUseCases(
         createVenta: CreateVentaUseCase(ventaRepository),
         getVentas: GetVentasUseCase(ventaRepository),
+        deleteVenta: DeleteVentaUseCase(ventaRepository),
       );
 
   @injectable

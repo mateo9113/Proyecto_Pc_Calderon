@@ -1,4 +1,5 @@
-import 'package:app_proyecto_pccalderon/src/domain/models/Venta.dart';
+import 'package:app_proyecto_pccalderon/src/domain/Utils/Resource.dart';
+import 'package:app_proyecto_pccalderon/src/domain/models/VentaDetalle.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/VentaRepository.dart';
 
 class GetVentasUseCase {
@@ -6,7 +7,5 @@ class GetVentasUseCase {
 
   GetVentasUseCase(this.ventaRepository);
 
-  Future<List<Venta>> run() async {
-    return await ventaRepository.getVentas();
-  }
+  Future<Resource<List<VentaDetalle>>> run() => ventaRepository.getVentas();
 }

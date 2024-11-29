@@ -4,17 +4,9 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/client/cliente/li
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
-// import 'package:app_proyecto_pccalderon/src/presentation/pages/client/order/list/ClientOrderListPage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/client/venta/list/VentaListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/roles/RolesPage.dart';
-// import 'package:ecommerce_flutter/main.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/client/category/list/ClientCategoryListPage.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/client/order/list/ClientOrderListPage.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/profile/info/ProfileInfoPage.dart';
-// import 'package:ecommerce_flutter/src/presentation/pages/roles/RolesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +25,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
     ProfileInfoPage(),
     RolesPage(),
     ClienteListPage(),
+    VentaListPage()
   ];
 
   @override
@@ -92,6 +85,14 @@ class _ClientHomePageState extends State<ClientHomePage> {
                   selected: state.pageIndex == 4,
                   onTap: () {
                     _bloc?.add(ChangeDrawerPage(pageIndex: 3));
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text('Ventas'),
+                  selected: state.pageIndex == 5,
+                  onTap: () {
+                    _bloc?.add(ChangeDrawerPage(pageIndex: 4));
                     Navigator.pop(context);
                   },
                 ),
