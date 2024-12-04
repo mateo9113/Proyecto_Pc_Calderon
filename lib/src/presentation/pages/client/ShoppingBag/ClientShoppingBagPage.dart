@@ -1,10 +1,10 @@
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/ClientShoppingBagBottomBar.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/ClientShoppingBagItem.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagState.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientShoppingBagPage extends StatefulWidget {
   const ClientShoppingBagPage({super.key});
@@ -15,6 +15,7 @@ class ClientShoppingBagPage extends StatefulWidget {
 
 class _ClientShoppingBagPageState extends State<ClientShoppingBagPage> {
   ClientShoppingBagBloc? _bloc;
+  TextEditingController _discountController = TextEditingController();
 
   @override
   void initState() {
@@ -73,11 +74,40 @@ class _ClientShoppingBagPageState extends State<ClientShoppingBagPage> {
         ),
         child: BlocBuilder<ClientShoppingBagBloc, ClientShoppingBagState>(
           builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.products.length,
-              itemBuilder: (context, index) {
-                return ClientShoppingBagItem(_bloc, state, state.products[index]);
-              },
+            return ListView(
+              children: [
+                // Lista de productos en el carrito
+                ...state.products.map((product) {
+                  return ClientShoppingBagItem(_bloc, state, product);
+                }).toList(),
+
+                // Mostrar el total con el descuento aplicado
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Total: \$${(state.total).toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                // Campo para ingresar el monto de descuento
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    controller: _discountController,
+                    decoration: InputDecoration(
+                      labelText: 'Monto de descuento',
+                      hintText: 'Ingresa el descuento',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      final descuento = double.tryParse(value) ?? 0;
+                      _bloc?.add(UpdateDiscount(descuento: descuento));
+                    },
+                  ),
+                ),
+              ],
             );
           },
         ),

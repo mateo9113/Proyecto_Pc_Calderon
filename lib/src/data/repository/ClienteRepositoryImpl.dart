@@ -27,4 +27,10 @@ class ClienteRepositoryImpl implements ClienteRepository {
   Future<Resource<bool>> delete(int id) {
     return clienteService.delete(id);
   }
+
+  // Implementamos el método para obtener el cliente por ID
+  @override
+  Future<Resource<Cliente>> getClienteById(int id) {
+    return clienteService.getClienteById(id);
+  }
 }

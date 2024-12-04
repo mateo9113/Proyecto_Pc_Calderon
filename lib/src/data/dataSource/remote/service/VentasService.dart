@@ -49,8 +49,16 @@ class VentasService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        List<VentaDetalle> ventas = VentaDetalle.fromJsonList(data);
-        return Success(ventas); // Devuelve la lista de ventas
+
+        // Mapeamos las ventas, pero solo extraemos los detalles
+        List<VentaDetalle> ventasDetalles = data.map((item) {
+          return VentaDetalle.fromJson({
+            ...item, // Mantener los datos originales de la venta
+            // Aquí puedes excluir el cliente si no lo necesitas en VentaDetalle
+          });
+        }).toList();
+
+        return Success(ventasDetalles); // Devolvemos la lista de detalles de ventas
       } else {
         // Manejar errores
         final data = json.decode(response.body);

@@ -19,3 +19,12 @@ class DeleteVenta extends VentaListEvent {
   @override
   List<Object?> get props => [ventaId];
 }
+
+// Evento para obtener cliente relacionado con la venta
+class GetClientePorVenta extends VentaListEvent {
+  final int idCliente; // ID del cliente asociado a la venta
+  GetClientePorVenta(this.idCliente);
+
+  @override
+  List<Object?> get props => [idCliente];
+}

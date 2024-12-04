@@ -6,4 +6,5 @@ abstract class ClienteRepository {
   Future<Resource<Cliente>> update(int id, Cliente cliente);
   Future<Resource<List<Cliente>>> getClientes();
   Future<Resource<bool>> delete(int id);
+  Future<Resource<Cliente>> getClienteById(int id);
 }

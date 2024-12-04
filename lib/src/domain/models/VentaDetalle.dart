@@ -8,6 +8,7 @@ class VentaDetalle {
   String subtotal; // Subtotal de la venta
   String? estado; // Estado de la venta (Ejemplo: "PAGADO")
   String? fecha; // Fecha de la venta
+  int? cantidad;
 
   VentaDetalle({
     this.id,
@@ -17,6 +18,7 @@ class VentaDetalle {
     required this.subtotal,
     this.estado,
     this.fecha,
+    this.cantidad,
   });
 
   // Convertir de JSON a Venta
@@ -42,29 +44,12 @@ class VentaDetalle {
       'idClient': idClient,
       'estado': estado, // Agregado estado aquí
       'fecha': fecha, // Agregado fecha aquí
+      'cantidad': cantidad,
       'productos': products
           .map((product) => {
                 'nombre': product.nombre, // Nombre del producto
-                'cantidad': product.quantity, // Cantidad del producto
               })
           .toList(),
-    };
-  }
-
-  // Convertir de Venta a JSON para el envío al backend
-  Map<String, dynamic> toJson() {
-    return {
-      'id_client': idClient,
-      'productos': products
-          .map((p) => {
-                'id': p.id,
-                'cantidad': p.quantity,
-              })
-          .toList(),
-      'subtotal': subtotal,
-      'total': total,
-      'estado': estado,
-      'fecha': fecha,
     };
   }
 

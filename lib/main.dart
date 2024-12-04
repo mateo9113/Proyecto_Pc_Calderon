@@ -8,6 +8,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/add
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/create/AdminProductCreatePage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/list/AdminProductListPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/update/AdminProductUpdatePage.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/reportes/ReportesPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/client/ShoppingBag/ClientShoppingBagPage.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
           'client/cliente/update': (BuildContext context) => ClienteUpdatePage(),
           'client/cliente/create': (BuildContext context) => ClienteCreatePage(),
           'admin/product/add_sn': (context) => AdminProductAddSNPage(),
+          'admin/reportes': (BuildContext context) => ReportesPage(),
         }, //rutas
       ),
     );

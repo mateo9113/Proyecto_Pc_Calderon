@@ -4,6 +4,7 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/auth/AuthUseCases.da
 import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/CategoriesUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/ClientesUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/ProductsUseCases.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/ReportesUseCaases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ventas/VentasUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateBloc.dart';
@@ -14,6 +15,7 @@ import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/home/bloc/A
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/create/bloc/AdminProductCreateBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/list/bloc/AdminProductListBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/product/update/bloc/AdminProductUpdateBloc.dart';
+import 'package:app_proyecto_pccalderon/src/presentation/pages/admin/reportes/bloc/ReportesBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:app_proyecto_pccalderon/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
@@ -68,4 +70,7 @@ List<BlocProvider> blocProviders = [
 
 // VENTAS
   BlocProvider<VentaListBloc>(create: (context) => VentaListBloc(locator<VentasUseCases>())),
+  BlocProvider<ReportesBloc>(
+    create: (context) => ReportesBloc(locator<ReportesUseCases>()),
+  )
 ];

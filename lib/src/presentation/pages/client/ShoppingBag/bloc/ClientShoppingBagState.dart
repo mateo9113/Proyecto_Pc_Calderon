@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 class ClientShoppingBagState extends Equatable {
   final List<Product> products;
   final double total;
+  final double descuento;
   final List<Cliente>? clients; // Lista de clientes
   final Cliente? selectedClient; // Cliente seleccionado
   final String? errorMessage; // Nuevo campo para manejar errores
@@ -12,6 +13,7 @@ class ClientShoppingBagState extends Equatable {
   const ClientShoppingBagState({
     this.products = const [],
     this.total = 0,
+    this.descuento = 0,
     this.clients,
     this.selectedClient,
     this.errorMessage,
@@ -20,6 +22,7 @@ class ClientShoppingBagState extends Equatable {
   ClientShoppingBagState copyWith({
     List<Product>? products,
     double? total,
+    double? descuento,
     List<Cliente>? clients,
     Cliente? selectedClient,
     String? errorMessage, // Añadido aquí
@@ -27,6 +30,7 @@ class ClientShoppingBagState extends Equatable {
     return ClientShoppingBagState(
       products: products ?? this.products,
       total: total ?? this.total,
+      descuento: descuento ?? this.descuento,
       clients: clients ?? this.clients,
       selectedClient: selectedClient ?? this.selectedClient,
       errorMessage: errorMessage,
@@ -34,5 +38,5 @@ class ClientShoppingBagState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [products, total, clients, selectedClient, errorMessage];
+  List<Object?> get props => [products, total, descuento, clients, selectedClient, errorMessage];
 }

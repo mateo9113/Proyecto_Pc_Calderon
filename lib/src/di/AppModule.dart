@@ -3,14 +3,15 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/Categ
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ClienteService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/OrdersService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ProductsService.dart';
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ReporteService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/UsersService.dart';
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/VentasService.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/AuthRepositoryImpl.dart';
-
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/AuthService.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/CategoriesRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/ClienteRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/ProductsRepositoryImpl.dart';
+import 'package:app_proyecto_pccalderon/src/data/repository/ReportesRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/ShoppingBagRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/UsersRepositoryImpl.dart';
 import 'package:app_proyecto_pccalderon/src/data/repository/VentasRepositoryImpl.dart';
@@ -18,6 +19,7 @@ import 'package:app_proyecto_pccalderon/src/domain/models/AuthResponse.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/AuthRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/CategoriesRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ClienteRepository.dart';
+import 'package:app_proyecto_pccalderon/src/domain/repository/ReportesRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ShoppingBagRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/UsersRepository.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/VentaRepository.dart';
@@ -42,6 +44,7 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/categories/UpdateCat
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/ClientesUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/CreateClienteUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/DeleteClienteUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/GetClienteByIdUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/GetClientesUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/UpdateClienteUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/CreateProductUseCase.dart';
@@ -49,6 +52,15 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/products/DeleteProdu
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/GetProductsByCategoryUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/ProductsUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/UpdateProductUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetProductosMasVendidosUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetProformaUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetReporteClientesUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetReporteInventarioUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetReporteProductosUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetReporteVentasUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetVentasPorClienteUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/GetVentasPorFechaUseCase.dart';
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/ReportesUseCaases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:app_proyecto_pccalderon/src/domain/repository/ProductsRepository.dart';
@@ -94,6 +106,11 @@ abstract class AppModule {
   @injectable
   VentasService get ventasService => VentasService(token);
 
+  // Nuevo: Servicio de Ventas
+  // Nuevo: Servicio de Reportes
+  @injectable
+  ReportesService get reportesService => ReportesService();
+
   @injectable
   AuthRepository get authRepository => AuthRepositoryImpl(authService, sharedPref);
 
@@ -121,6 +138,10 @@ abstract class AppModule {
         getUserSession: GetUserSessionUseCase(authRepository),
         logout: LogoutUseCase(authRepository),
       );
+
+  // Nuevo: Repositorio de Reportes
+  @injectable
+  ReportesRepository get reportesRepository => ReportesRepositoryImpl(reportesService);
 
   @injectable
   UsersUseCases get usersUseCases => UsersUseCases(
@@ -157,6 +178,7 @@ abstract class AppModule {
         createVenta: CreateVentaUseCase(ventaRepository),
         getVentas: GetVentasUseCase(ventaRepository),
         deleteVenta: DeleteVentaUseCase(ventaRepository),
+        getClienteById: GetClienteByIdUseCase(clienteRepository),
       );
 
   @injectable
@@ -165,5 +187,19 @@ abstract class AppModule {
         getClientes: GetClientesUseCase(clienteRepository),
         update: UpdateClienteUseCase(clienteRepository),
         delete: DeleteClienteUseCase(clienteRepository),
+        getClienteById: GetClienteByIdUseCase(clienteRepository),
+      );
+
+  // Nuevo: Casos de uso de reportes
+  @injectable
+  ReportesUseCases get reportesUseCases => ReportesUseCases(
+        getReporteClientes: GetReporteClientesUseCase(reportesRepository),
+        getReporteProductos: GetReporteProductosUseCase(reportesRepository),
+        getReporteVentas: GetReporteVentasUseCase(reportesRepository),
+        getReporteInventario: GetReporteInventarioUseCase(reportesRepository),
+        getProductosMasVendidos: GetProductosMasVendidosUseCase(reportesRepository),
+        getVentasPorCliente: GetVentasPorClienteUseCase(reportesRepository),
+        getVentasPorFecha: GetVentasPorFechaUseCase(reportesRepository),
+        getProforma: GetProformaUseCase(reportesRepository),
       );
 }

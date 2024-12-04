@@ -24,6 +24,7 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
     on<GetClients>(_onGetClients);
     on<SelectClient>(_onSelectClient);
     on<CreateVenta>(_onCreateVenta);
+    on<UpdateDiscount>(_onUpdateDiscount);
   }
 
   Future<void> _onGetClients(GetClients event, Emitter<ClientShoppingBagState> emit) async {
@@ -82,6 +83,7 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
 
   Future<void> _onGetTotal(GetTotal event, Emitter<ClientShoppingBagState> emit) async {
     double total = await shoppingBagUseCases.getTotal.run();
+    total -= state.descuento; // Restamos el descuento del total
     emit(state.copyWith(total: total));
   }
 
@@ -96,8 +98,9 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
       final venta = Venta(
         idClient: state.selectedClient!.id!, // ID del cliente seleccionado
         products: state.products, // Lista de productos en el carrito
-        total: state.total.toString(), // Total de la venta
-        subtotal: (state.total * 0.9).toString(), // Subtotal (ejemplo: 90% del total)
+        total: (state.total - state.descuento).toString(), // Total de la venta
+        subtotal: (state.total).toString(),
+        descuento: (state.descuento).toString(), // Subtotal (ejemplo: 90% del total)
       );
 
       // Llama al caso de uso para crear la venta
@@ -117,5 +120,14 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
     } catch (error) {
       emit(state.copyWith(errorMessage: "Error al confirmar la venta: $error"));
     }
+  }
+
+  Future<void> _onUpdateDiscount(UpdateDiscount event, Emitter<ClientShoppingBagState> emit) async {
+    // Actualiza el descuento en el estado
+    // Emitir un nuevo estado con el descuento actualizado
+    emit(state.copyWith(descuento: event.descuento));
+
+    // Después, recalcular el total (puedes usar el evento GetTotal para esto)
+    add(GetTotal());
   }
 }

@@ -54,3 +54,16 @@ class CreateVenta extends ClientShoppingBagEvent {
   @override
   List<Object?> get props => [total];
 }
+
+class UpdateDiscount extends ClientShoppingBagEvent {
+  final double descuento;
+
+  const UpdateDiscount({required this.descuento});
+
+  @override
+  List<Object?> get props => [descuento];
+}
+
+class ResetDiscount extends ClientShoppingBagEvent {
+  ResetDiscount();
+}

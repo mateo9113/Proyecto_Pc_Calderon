@@ -20,6 +20,8 @@ import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/Order
     as _i666;
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ProductsService.dart'
     as _i606;
+import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/ReporteService.dart'
+    as _i1011;
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/UsersService.dart'
     as _i1072;
 import 'package:app_proyecto_pccalderon/src/data/dataSource/remote/service/VentasService.dart'
@@ -33,6 +35,8 @@ import 'package:app_proyecto_pccalderon/src/domain/repository/ClienteRepository.
     as _i741;
 import 'package:app_proyecto_pccalderon/src/domain/repository/ProductsRepository.dart'
     as _i382;
+import 'package:app_proyecto_pccalderon/src/domain/repository/ReportesRepository.dart'
+    as _i455;
 import 'package:app_proyecto_pccalderon/src/domain/repository/ShoppingBagRepository.dart'
     as _i957;
 import 'package:app_proyecto_pccalderon/src/domain/repository/UsersRepository.dart'
@@ -47,6 +51,8 @@ import 'package:app_proyecto_pccalderon/src/domain/useCases/cliente/ClientesUseC
     as _i81;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/products/ProductsUseCases.dart'
     as _i950;
+import 'package:app_proyecto_pccalderon/src/domain/useCases/reportes/ReportesUseCaases.dart'
+    as _i715;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/ShoppingBag/ShoppingBagUseCases.dart'
     as _i536;
 import 'package:app_proyecto_pccalderon/src/domain/useCases/users/UsersUseCases.dart'
@@ -77,6 +83,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i666.OrdersService>(() => appModule.ordersService);
     gh.factory<_i210.ClienteService>(() => appModule.clienteService);
     gh.factory<_i864.VentasService>(() => appModule.ventasService);
+    gh.factory<_i1011.ReportesService>(() => appModule.reportesService);
     gh.factory<_i298.AuthRepository>(() => appModule.authRepository);
     gh.factory<_i102.UsersRepository>(() => appModule.usersRepository);
     gh.factory<_i537.CategoriesRepository>(
@@ -87,12 +94,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i741.ClienteRepository>(() => appModule.clienteRepository);
     gh.factory<_i13.VentaRepository>(() => appModule.ventaRepository);
     gh.factory<_i993.AuthUseCases>(() => appModule.authUseCases);
+    gh.factory<_i455.ReportesRepository>(() => appModule.reportesRepository);
     gh.factory<_i495.UsersUseCases>(() => appModule.usersUseCases);
     gh.factory<_i449.CategoriesUseCases>(() => appModule.categoriesUseCases);
     gh.factory<_i950.ProductsUseCases>(() => appModule.productsUseCases);
     gh.factory<_i536.ShoppingBagUseCases>(() => appModule.shoppingBagUseCases);
     gh.factory<_i78.VentasUseCases>(() => appModule.ventasUseCases);
     gh.factory<_i81.ClientesUseCases>(() => appModule.clientesUseCases);
+    gh.factory<_i715.ReportesUseCases>(() => appModule.reportesUseCases);
     return this;
   }
 }
